@@ -47,6 +47,15 @@ Plug 'https://github.com/ap/vim-css-color'
 " Plug 'https://github.com/vim-airline/vim-airline'
 " Plug 'nvim-lualine/lualine.nvim'
 
+Plug 'https://github.com/hrsh7th/nvim-cmp'
+Plug 'https://github.com/hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+
+Plug 'SirVer/ultisnips'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+
 "Plug 'https://github.com/preservim/nerdtree'
 "disabled nerdtree, using nvim-tree now
 "
@@ -56,18 +65,15 @@ Plug 'https://github.com/raimondi/delimitmate'
 Plug 'https://github.com/tc50cal/vim-terminal'
 Plug 'https://github.com/neovim/nvim-lspconfig'
 Plug 'https://github.com/simrat39/rust-tools.nvim'
-Plug 'https://github.com/hrsh7th/cmp-nvim-lsp'
 
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
 
-Plug 'SirVer/ultisnips'
 Plug 'mlaursen/vim-react-snippets'
 Plug 'neoclide/coc-prettier'
 Plug 'https://github.com/airblade/vim-gitgutter'
 Plug 'dikiaap/minimalist'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
-Plug 'https://github.com/hrsh7th/nvim-cmp'
 Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim' " OPTIONAL: for git status
@@ -152,13 +158,33 @@ require('windline').add_status(
   require('wlsample.airline')
 
     )
-  
 
-require'cmp'.setup {
-  sources = {
-    { name = 'nvim_lsp' }
-  }
-}
+--- Autocompletion setup
+local cmp = require'cmp'
+
+cmp.setup({
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'ultisnips' },
+    }, {{ name = 'buffer'}}),
+  snippet = {
+    expand = function(args)
+      vim.fn["UltiSnips#Anon"](args.body)
+    end 
+    },
+  window = {
+    window = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered (),
+    },
+  mapping = cmp.mapping.preset.insert({
+      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<Tab>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    }),
+})
+
 
 -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -167,6 +193,15 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require'lspconfig'.clangd.setup {
   capabilities = capabilities,
 }
+
+-- Configure multiple language servers 
+local servers = {'bashls', 'pyright', 'lua_ls','tsserver' }
+for _, lsp in ipairs(servers) do
+  require('lspconfig')[lsp].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+end
 
 EOF
 
@@ -178,4 +213,5 @@ let g:typescript_compiler_options = '--lib es6'
 if $COLORTERM == 'gnome-terminal'
   set t_Co=256
 endif
+
 
