@@ -196,7 +196,7 @@ require'lspconfig'.clangd.setup {
 }
 
 -- Configure multiple language servers 
-local servers = {'bashls', 'pyright', 'lua_ls','tsserver' }
+local servers = { 'bashls', 'pyright', 'lua_ls','tsserver' }
 for _, lsp in ipairs(servers) do
   require('lspconfig')[lsp].setup {
     on_attach = on_attach,
@@ -205,7 +205,6 @@ for _, lsp in ipairs(servers) do
 end
 
 EOF
-
 
 let g:rustfmt_autosave = 1
 let g:typescript_compiler_binary = 'tsc'
