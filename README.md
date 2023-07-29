@@ -11,3 +11,4 @@ My Neovim Editor Configuration file
 ---Download this file and save it under ~/.congig/nvim/
 
 ### Enjoy!
+![Screenshot from 2023-07-30 01-46-14](https://github.com/Magpiny/Neovim-Configuration/assets/48335067/517e93f4-c6ce-4975-b352-5bf9ce15bee5)
