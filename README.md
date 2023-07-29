@@ -2,7 +2,7 @@
 My Neovim Editor Configuration file
 
 # Basic Neovim Configuration File
-##Neovim
+## Neovim
 --- Terminal based text editor
 ----My current text editor
 
@@ -10,4 +10,4 @@ My Neovim Editor Configuration file
 ---Install Neovim using your package manager
 ---Download this file and save it under ~/.congig/nvim/
 
-###Enjoy!
+### Enjoy!
