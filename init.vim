@@ -143,11 +143,16 @@ indent={
 }
 })
 
-require('wlsample.airline_anim')
+--require('wlsample.airline_anim')
+--require('wlsample.airline_luffy')
 
 require('windline').add_status(
-  require('spectre.state_utils').status_line()
+  require('spectre.state_utils').status_line(),
+  --require('wlsample.airline_luffy')
+  require('wlsample.airline')
+
     )
+  
 
 require'cmp'.setup {
   sources = {
