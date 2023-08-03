@@ -3,11 +3,11 @@ My Neovim Editor Configuration file
 
 # Basic Neovim Configuration File
 ## Neovim
---- Terminal based text editor <br>
+--- Terminal based text editor<br>
 ----My current text editor
 
 # Usage
----Install Neovim using your package manager <br>
+---Install Neovim using your package manager\
 ---Download this file and save it under ~/.config/nvim/
 
 ### Normal
